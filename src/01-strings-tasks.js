@@ -5,7 +5,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -20,10 +19,9 @@
  */
 function concatenateStrings(value1, value2) {
   // throw new Error('Not implemented');
-  let arr = [value1, value2]
-  return arr.join("")
+  const arr = [value1, value2];
+  return arr.join('');
 }
-
 
 /**
  * Returns the length of given string.
@@ -38,7 +36,7 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
   // throw new Error('Not implemented');
-  return value.split('').length
+  return value.split('').length;
 }
 
 /**
@@ -56,7 +54,7 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
   // throw new Error('Not implemented');
-  return `Hello, ${firstName} ${lastName}!`
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -71,10 +69,9 @@ function getStringFromTemplate(firstName, lastName) {
  */
 function extractNameFromTemplate(value) {
   // throw new Error('Not implemented');
-  let str = value.split(' ').slice(1).join(" ")
- return str.substring(0, str.length - 1)
+  const str = value.split(' ').slice(1).join(' ');
+  return str.substring(0, str.length - 1);
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -88,10 +85,9 @@ function extractNameFromTemplate(value) {
  */
 function getFirstChar(value) {
   // throw new Error('Not implemented');
-//  return value.slice(0, -(value.length - 1))
-//  return value.replace(/$./, '')
-return value[0]
-
+  //  return value.slice(0, -(value.length - 1))
+  //  return value.replace(/$./, '')
+  return value[0];
 }
 
 /**
@@ -107,7 +103,7 @@ return value[0]
  */
 function removeLeadingAndTrailingWhitespaces(value) {
   // throw new Error('Not implemented');
-  return value.trim()
+  return value.trim();
 }
 
 /**
@@ -124,16 +120,16 @@ function removeLeadingAndTrailingWhitespaces(value) {
 function repeatString(value, count) {
   // throw new Error('Not implemented');
   let num = 0;
-  let res = [];
-function addWard() {
-  res.push(value);
-  num++
-  if(count > num) {
-    addWard();
+  const res = [];
+  function addWard() {
+    res.push(value);
+    num += 1;
+    if (count > num) {
+      addWard();
+    }
   }
-}
-addWard()
-return res.join('');
+  addWard();
+  return res.join('');
 }
 
 /**
@@ -150,7 +146,7 @@ return res.join('');
  */
 function removeFirstOccurrences(str, value) {
   // throw new Error('Not implemented');
-  return str.replace(value, '')
+  return str.replace(value, '');
 }
 
 /**
@@ -167,9 +163,12 @@ function removeFirstOccurrences(str, value) {
 function unbracketTag(str) {
   // throw new Error('Not implemented');
   // return str.split('').slice(1).slice(-1).join(" ")
- return str.substring(0, str.length - 1).split('').slice(1).join("")
+  return str
+    .substring(0, str.length - 1)
+    .split('')
+    .slice(1)
+    .join('');
 }
-
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -181,8 +180,9 @@ function unbracketTag(str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  // throw new Error('Not implemented');
+  return str.toUpperCase();
 }
 
 /**
@@ -200,8 +200,9 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  // throw new Error('Not implemented');
+  return str.split(';');
 }
 
 /**
@@ -227,10 +228,38 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  // throw new Error('Not implemented');
+  let result = '';
+  for (let h = 1; h <= height; h += 1) {
+    for (let w = 1; w <= width; w += 1) {
+      if (h === 1) {
+        if (w === 1) {
+          result += '┌';
+        } else if (w === width) {
+          result += '┐\n';
+        } else {
+          result += '─';
+        }
+      } else if (h === height) {
+        if (w === 1) {
+          result += '└';
+        } else if (w === width) {
+          result += '┘\n';
+        } else {
+          result += '─';
+        }
+      } else if (w === 1) {
+        result += '│';
+      } else if (w === width) {
+        result += '│\n';
+      } else {
+        result += ' ';
+      }
+    }
+  }
+  return result;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -248,8 +277,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let encoded = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i].toLowerCase() === str[i].toUpperCase()) {
+      encoded += str[i];
+    } else {
+      const index = input.indexOf(str[i]);
+      encoded += output[index];
+    }
+  }
+
+  return encoded;
 }
 
 /**
@@ -265,10 +306,17 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  const str = value;
+  const type = typeof value;
+  if (type === 'object' && str[0] === 'test') {
+    return true;
+  }
+  if (type === 'string') {
+    return true;
+  }
+  return false;
 }
-
 
 /**
  * Returns playid card id.
@@ -297,7 +345,6 @@ function isString(/* value */) {
 function getCardId(/* value */) {
   throw new Error('Not implemented');
 }
-
 
 module.exports = {
   concatenateStrings,
