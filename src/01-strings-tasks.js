@@ -309,8 +309,10 @@ function encodeToRot13(str) {
 function isString(value) {
   const str = value;
   const type = typeof value;
-  if (type === 'object' && str[0] === 'test') {
-    return true;
+  if (type === 'object' && str !== null) {
+    if (str.length > 0) {
+      return true;
+    }
   }
   if (type === 'string') {
     return true;
@@ -323,10 +325,10 @@ function isString(value) {
  *
  * Playing cards inittial deck inclides the cards in the following order:
  *
- *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
- *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
- *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
- *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+ *  [♣: {'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣'},
+ *  ♦: {'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦'},
+ *  ♥: {'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥'},
+ *  ♠: {'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'}]
  *
  * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
  * Function returns the zero-based index of specified card in the initial deck above.
@@ -342,8 +344,43 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const card = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
+  ];
+  let v = value.split('');
+  if (v[0] === '1' && v[1] === '0') {
+    v = ['10', v[2]];
+  }
+  let d = 0;
+  if (v[1] === '♦') {
+    d = 13;
+  }
+  if (v[1] === '♥') {
+    d = 26;
+  }
+  if (v[1] === '♠') {
+    d = 39;
+  }
+  let result = 0;
+  for (let i = 0; i < card.length; i += 1) {
+    if (card[i] === v[0]) {
+      result = i + d;
+    }
+  }
+  return result;
 }
 
 module.exports = {
